@@ -1,327 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Be Mobile | Pannala Mobile Phones, Accessories & Speakers</title>
-  <meta name="description" content="Be Mobile in Pannala offers mobile phones, accessories, speakers, and fast WhatsApp support for local customers." />
-  <meta property="og:title" content="Be Mobile | Pannala" />
-  <meta property="og:description" content="Mobile phones, accessories, speakers, and fast customer support in Pannala." />
-  <meta property="og:type" content="website" />
-  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "MobilePhoneStore",
-      "name": "Be Mobile",
-      "telephone": "+94 70 474 7472",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Pannala",
-        "addressCountry": "LK"
-      },
-      "areaServed": "Pannala",
-      "sameAs": [
-        "https://www.facebook.com/BEMOBILE1/"
-      ]
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Be Mobile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body class="bg-black">
+    <div id="root"></div>
+
+    <script type="text/babel">
+const { useState, useEffect } = React;
+const AnimatePresence = ({ children }) => <>{children}</>;
+const motion = new Proxy({}, { get: (_, tag) => ({ children, ...props }) => React.createElement(tag, props, children) });
+const icon = (glyph) => ({ className = '' }) => <span className={className}>{glyph}</span>;
+const Smartphone = icon('📱'); const Headphones = icon('🎧'); const Speaker = icon('🔊'); const MapPin = icon('📍');
+const MessageCircle = icon('💬'); const ChevronRight = icon('›'); const ChevronLeft = icon('‹'); const Menu = icon('☰');
+const X = icon('✕'); const Facebook = icon('f'); const Phone = icon('📞'); const ArrowUpRight = icon('↗'); const Zap = icon('⚡');
+const Shield = icon('🛡️'); const Search = icon('🔍'); const ShoppingBag = icon('🛍️'); const Monitor = icon('🖥️');
+const Laptop = icon('💻'); const Cpu = icon('🧠'); const Camera = icon('📷'); const Wifi = icon('📶'); const PenTool = icon('✎');
+const BatteryCharging = icon('🔋'); const Wrench = icon('🔧'); const ChevronDown = icon('⌄'); const Truck = icon('🚚');
+const RefreshCw = icon('⟳'); const HelpCircle = icon('❓'); const CheckCircle2 = icon('✅'); const User = icon('👤');
+const Lock = icon('🔒'); const Mail = icon('✉️');
+
+const BRANDS = ['Apple', 'Samsung', 'JBL', 'Anker', 'Baseus', 'Logitech', 'Spigen', 'Xiaomi', 'Joyroom'];
+const PRODUCTS = [
+  { id: 1, name: 'iPhone 15 Pro Max', category: 'Phones', price: 'Rs. 425,000', image: 'bg-zinc-800', badge: 'New', desc: 'Titanium. So strong. So light. So Pro.' },
+  { id: 2, name: 'Samsung Galaxy S24 Ultra', category: 'Phones', price: 'Rs. 395,000', image: 'bg-zinc-900', badge: 'Popular', desc: 'Galaxy AI is here. Welcome to the era of mobile AI.' },
+  { id: 3, name: 'JBL PartyBox 320', category: 'Audio', price: 'Rs. 185,000', image: 'bg-blue-900', badge: 'Featured', desc: 'Bring your party anywhere. Massive sound.' },
+  { id: 4, name: 'Anker 737 Power Bank', category: 'Accessories', price: 'Rs. 45,000', image: 'bg-zinc-800', desc: '140W Two-Way Fast Charging.' },
+  { id: 5, name: 'MacBook Air M3', category: 'Laptops', price: 'Rs. 380,000', image: 'bg-zinc-900', badge: 'New', desc: 'Lean. Mean. M3 machine.' },
+  { id: 6, name: 'Custom Gaming Rig RTX 4070', category: 'Gaming', price: 'Rs. 650,000', image: 'bg-purple-900', desc: 'Built for extreme 1440p gaming.' },
+  { id: 7, name: 'Spigen Ultra Hybrid Case', category: 'Accessories', price: 'Rs. 8,500', image: 'bg-zinc-800', desc: 'Clear protection that lasts.' },
+  { id: 8, name: 'Logitech MX Master 3S', category: 'Accessories', price: 'Rs. 38,000', image: 'bg-zinc-900', desc: 'The ultimate precision mouse.' },
+];
+const HERO_SLIDES = [
+  { id: 1, title: 'iPhone 15 Pro', subtitle: 'Titanium. Titanium. Titanium.', imageClass: 'from-zinc-800 to-black', textGradient: 'from-zinc-300 to-zinc-500', product: PRODUCTS[0] },
+  { id: 2, title: 'JBL PartyBox 320', subtitle: 'Massive Sound. Epic Lights.', imageClass: 'from-blue-900 to-black', textGradient: 'from-blue-400 to-purple-500', product: PRODUCTS[2] },
+  { id: 3, title: 'Galaxy S24 Ultra', subtitle: 'Galaxy AI is here.', imageClass: 'from-zinc-900 to-black', textGradient: 'from-zinc-100 to-zinc-400', product: PRODUCTS[1] }
+];
+const CATEGORIES = {
+  "Mobile Accessories": ["Cases & Covers", "Screen Protectors", "Chargers", "Cables"],
+  "Computing": ["Laptop Accessories", "Hubs & Adapters", "Storage", "Keyboards & Mice"],
+  "Audio & Smart": ["Headphones", "Bluetooth Speakers", "Smart Watches", "Gaming Headsets"]
+};
+
+// ...code adapted from prompt...
+
+const Navbar = ({ currentView, setView }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showMegaMenu, setShowMegaMenu] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  const navLinks = [{ id: 'home', label: 'Home' },{ id: 'shop', label: 'Store' },{ id: 'services', label: 'Repairs & Services' },{ id: 'contact', label: 'Contact' }];
+  return <><nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled || showMegaMenu ? 'bg-black/80 backdrop-blur-xl border-b border-white/10' : 'bg-transparent'}`}><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div className="flex justify-between items-center h-16"><div className="flex items-center cursor-pointer" onClick={() => setView('home')}><span className="text-xl font-semibold tracking-tight text-zinc-100">Be Mobile<span className="text-blue-500">.</span></span></div><div className="hidden md:flex space-x-8 items-center">{navLinks.map((item)=><button key={item.id} onClick={() => setView(item.id)} onMouseEnter={() => item.id === 'shop' ? setShowMegaMenu(true) : setShowMegaMenu(false)} className={`text-xs tracking-wide font-medium transition-colors ${currentView === item.id ? 'text-white' : 'text-zinc-400 hover:text-zinc-100'}`}>{item.label}</button>)}</div><div className="hidden md:flex items-center space-x-6"><Search className="h-4 w-4 text-zinc-400" /><button onClick={() => setView('account')} className="text-zinc-400 hover:text-white transition-colors"><User className="h-4 w-4" /></button></div><div className="md:hidden flex items-center space-x-4"><button onClick={() => setIsOpen(!isOpen)} className="text-zinc-100">{isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button></div></div></div></nav>{isOpen && <div className="fixed inset-0 z-40 bg-black/95 backdrop-blur-3xl pt-20"><div className="flex flex-col px-6 py-8 space-y-6 h-full overflow-y-auto">{navLinks.map((item) => <button key={item.id} onClick={() => { setView(item.id); setIsOpen(false); }} className="text-3xl font-semibold text-zinc-100 text-left border-b border-white/5 pb-4">{item.label}</button>)}</div></div>}</>
+};
+const HeroSlideshow = ({ setView, onProductClick }) => { const [current, setCurrent] = useState(0); useEffect(() => {const timer = setInterval(() => setCurrent((prev) => (prev + 1) % HERO_SLIDES.length), 6000); return () => clearInterval(timer);}, []); return <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-black pt-16"><div className="max-w-7xl mx-auto px-4 relative z-10 w-full flex flex-col items-center text-center"><h1 className={`text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter leading-none mb-6 text-transparent bg-clip-text bg-gradient-to-r ${HERO_SLIDES[current].textGradient}`}>{HERO_SLIDES[current].title}</h1><p className="text-xl md:text-3xl text-zinc-100 font-medium tracking-tight mb-8">{HERO_SLIDES[current].subtitle}</p><div className="flex flex-col sm:flex-row items-center justify-center gap-4"><button onClick={() => onProductClick(HERO_SLIDES[current].product)} className="w-full sm:w-auto bg-white text-black px-8 py-3 rounded-full font-semibold">Buy Now</button><button onClick={() => setView('shop')} className="w-full sm:w-auto bg-zinc-900 border border-zinc-800 text-zinc-100 px-8 py-3 rounded-full font-semibold">Explore Store</button></div></div></section>; };
+const HomeView = ({ setView, onProductClick }) => <div><HeroSlideshow setView={setView} onProductClick={onProductClick} /><section className="py-16 bg-zinc-950 border-y border-zinc-900"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><h3 className="text-xs font-bold tracking-widest text-zinc-500 uppercase mb-8 text-center">Shop Premium Brands</h3><div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60">{BRANDS.map((brand) => <div key={brand} className="text-xl md:text-2xl font-bold tracking-tight text-zinc-400">{brand}</div>)}</div></div></section></div>;
+const ShopView = ({ onProductClick }) => <div className="pt-32 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><h1 className="text-5xl font-semibold tracking-tight text-white mb-10">Store.</h1><div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">{PRODUCTS.map((prod)=><div key={prod.id} onClick={() => onProductClick(prod)} className="bg-zinc-900/50 border border-zinc-800 rounded-3xl p-6 cursor-pointer"><div className={`w-full aspect-square ${prod.image} rounded-2xl mb-6`}></div><div className="text-xs text-blue-500 font-medium mb-2">{prod.category}</div><h3 className="text-lg font-semibold text-white mb-2 leading-tight">{prod.name}</h3><p className="text-zinc-300 font-medium">{prod.price}</p></div>)}</div></div>;
+const ProductDetailView = ({ product, setView }) => !product ? null : <div className="pt-32 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><button onClick={() => setView('shop')} className="text-zinc-400 hover:text-white flex items-center gap-2 mb-8 text-sm">Back to Store</button><h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-4">{product.name}</h1><p className="text-xl text-zinc-400 mb-6">{product.desc}</p><p className="text-3xl text-zinc-100 font-light mb-8">{product.price}</p></div>;
+const ServicesView = () => <div className="pt-32 pb-20 max-w-7xl mx-auto px-4"><h1 className="text-5xl font-semibold tracking-tighter text-white mb-6">Expert Repairs.</h1></div>;
+const ContactView = () => <div className="pt-32 pb-20 max-w-7xl mx-auto px-4"><h1 className="text-5xl font-semibold tracking-tight text-white mb-6">Get in touch.</h1></div>;
+const AccountView = () => <div className="pt-32 pb-20 max-w-7xl mx-auto px-4"><h1 className="text-4xl text-white">My Account</h1></div>;
+const Footer = ({ setView }) => <footer className="bg-zinc-950 pt-12 pb-10 border-t border-zinc-900"><div className="max-w-7xl mx-auto px-4"><p className="text-zinc-600 text-xs font-medium">© {new Date().getFullYear()} Be Mobile Pannala. All rights reserved.</p></div></footer>;
+
+function App() {
+  const [currentView, setCurrentView] = useState('home');
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  useEffect(() => { window.scrollTo(0, 0); }, [currentView]);
+  const handleProductClick = (product) => { setSelectedProduct(product); setCurrentView('productDetail'); };
+  const renderView = () => {
+    switch (currentView) {
+      case 'home': return <HomeView setView={setCurrentView} onProductClick={handleProductClick} />;
+      case 'shop': return <ShopView onProductClick={handleProductClick} />;
+      case 'productDetail': return <ProductDetailView product={selectedProduct} setView={setCurrentView} />;
+      case 'services': return <ServicesView />;
+      case 'contact': return <ContactView />;
+      case 'account': return <AccountView />;
+      default: return <HomeView setView={setCurrentView} onProductClick={handleProductClick} />;
     }
-  </script>
-</head>
-<body>
-  <header class="header">
-    <div class="container nav-wrap">
-      <a href="index.html" class="brand" aria-label="Be Mobile home">
-        <img src="assets/logo.svg" alt="Be Mobile logo" class="brand-logo" />
-        <div>
-          <span class="brand-name">Be Mobile</span>
-          <span class="brand-tag">Pannala, Sri Lanka</span>
-        </div>
-      </a>
-
-      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-
-      <nav class="nav">
-        <a href="index.html" class="active">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="https://www.facebook.com/BEMOBILE1/" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://wa.me/94704747472" class="btn btn-primary">WhatsApp</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">Phones • Accessories • Speakers • Fast Support</span>
-          <h1>
-            Your trusted <span class="gradient-text">mobile shop</span><br />
-            in Pannala.
-          </h1>
-          <p class="subhead">පන්නලේ ඔබේ විශ්වාසවන්ත ජංගම දුරකථන සහ ඇක්සසරිස් වෙළඳසැල — phones, accessories, speakers, and quick WhatsApp service all in one place.</p>
-          <p>
-            Be Mobile is designed here as a stronger digital storefront for the same Facebook audience: a cleaner brand look,
-            easier product browsing, and faster contact through WhatsApp, phone, and Facebook.
-          </p>
-          <div class="hero-actions">
-            <a href="products.html" class="btn btn-primary">Browse Products</a>
-            <a href="contact.html" class="btn btn-secondary">Order / Ask Now</a>
-            <a href="https://www.facebook.com/BEMOBILE1/" target="_blank" rel="noopener" class="btn btn-ghost">Visit Facebook Page</a>
-          </div>
-          <div class="hero-highlights">
-            <div>
-              <strong>Bilingual customer experience</strong>
-              <span>English + Sinhala friendly copy</span>
-            </div>
-            <div>
-              <strong>Fast purchase path</strong>
-              <span>Call or WhatsApp in one tap</span>
-            </div>
-            <div>
-              <strong>Facebook-ready website</strong>
-              <span>Built to convert social traffic</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <div class="hero-art" aria-hidden="true">
-            <div class="screen"></div>
-            <div class="speaker-bars"><span></span><span></span><span></span><span></span></div>
-            <div class="floating-chip chip-1">
-              <small>Main contact</small>
-              <strong>+94 70 474 7472</strong>
-            </div>
-            <div class="metric-chip">
-              <small>Location</small>
-              <strong>Near Pannala Bus Stand</strong>
-            </div>
-            <div class="floating-chip chip-2">
-              <small>Best for</small>
-              <strong>Phones • Accessories • Audio</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container trust-strip">
-        <div class="trust-item">
-          <strong>Local brand</strong>
-          <span>Built around customers in and around Pannala.</span>
-        </div>
-        <div class="trust-item">
-          <strong>One clear number</strong>
-          <span>Main phone and WhatsApp contact used across the site.</span>
-        </div>
-        <div class="trust-item">
-          <strong>Facebook integration</strong>
-          <span>Easy jump from website to page posts and offers.</span>
-        </div>
-        <div class="trust-item">
-          <strong>Ready to grow</strong>
-          <span>Add real prices, photos, and offers anytime.</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-alt">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">What customers can shop for</span>
-          <h2>Products and services that match the store’s real Facebook presence</h2>
-          <p>Instead of a generic demo, this version highlights actual categories and named products customers already see on social media.</p>
-        </div>
-
-        <div class="feature-grid">
-          <article class="feature-card">
-            <div class="icon-badge">📱</div>
-            <h3>Smartphones</h3>
-            <p>Budget phones, daily-use devices, and customer-friendly upgrades for walk-in and online buyers.</p>
-          </article>
-          <article class="feature-card">
-            <div class="icon-badge">🔌</div>
-            <h3>Accessories</h3>
-            <p>Chargers, cables, covers, screen guards, earphones, and the essentials customers ask for most.</p>
-          </article>
-          <article class="feature-card">
-            <div class="icon-badge">🔊</div>
-            <h3>Speakers & Party Audio</h3>
-            <p>Dedicated presentation for Bluetooth speakers and party-box style items promoted on Facebook.</p>
-          </article>
-          <article class="feature-card">
-            <div class="icon-badge">💬</div>
-            <h3>Quick support</h3>
-            <p>Price checks, stock requests, and customer questions can move directly into WhatsApp.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-heading compact">
-          <span class="eyebrow">Featured now</span>
-          <h2>Branded product cards ready for real stock updates</h2>
-        </div>
-
-        <div class="product-grid">
-          <article class="product-card">
-            <div class="visual speaker"></div>
-            <div class="meta">Speaker highlight</div>
-            <h3>JBL 320</h3>
-            <p>High-visibility audio item for parties, home use, or events. Perfect for a featured-offer slot.</p>
-            <div class="tag-row">
-              <span class="tag">Ask for today’s price</span>
-              <span class="tag">Facebook feature</span>
-            </div>
-          </article>
-          <article class="product-card">
-            <div class="visual speaker"></div>
-            <div class="meta">Audio system</div>
-            <h3>SUPER M1212 AC/DC</h3>
-            <p>A named speaker model already referenced in public post snippets, now presented more professionally.</p>
-            <div class="tag-row">
-              <span class="tag">AC/DC</span>
-              <span class="tag">Inquire on WhatsApp</span>
-            </div>
-          </article>
-          <article class="product-card">
-            <div class="visual phone"></div>
-            <div class="meta">Popular category</div>
-            <h3>Used & New Phones</h3>
-            <p>Great section for Samsung, Redmi, budget Android options, or trade-in style inventory updates.</p>
-            <div class="tag-row">
-              <span class="tag">New arrivals</span>
-              <span class="tag">Budget options</span>
-            </div>
-          </article>
-          <article class="product-card">
-            <div class="visual accessory"></div>
-            <div class="meta">Everyday essentials</div>
-            <h3>Chargers, Covers & Cables</h3>
-            <p>A practical store category for fast sales and repeat customers looking for accessories.</p>
-            <div class="tag-row">
-              <span class="tag">Fast-moving items</span>
-              <span class="tag">Quick inquiry</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-alt">
-      <div class="container two-col">
-        <div>
-          <span class="eyebrow">Why this version is better</span>
-          <h2>Not just a sample site — a real brand foundation</h2>
-          <p>
-            This upgraded version positions Be Mobile as a serious retail brand instead of just a Facebook page. It keeps the local,
-            fast-contact feel while adding the credibility of a proper website.
-          </p>
-          <ul class="check-list">
-            <li>Bilingual copy that feels more local and customer-friendly</li>
-            <li>Real product-card structure for phones, accessories, and audio</li>
-            <li>Facebook + WhatsApp + call integration across every page</li>
-            <li>Cleaner trust signals for customers who want to buy quickly</li>
-          </ul>
-          <div class="stat-line">
-            <div>
-              <strong>1</strong>
-              <span>Main contact number</span>
-            </div>
-            <div>
-              <strong>3</strong>
-              <span>Core traffic sources: call, WhatsApp, Facebook</span>
-            </div>
-            <div>
-              <strong>∞</strong>
-              <span>Future updates with prices and product photos</span>
-            </div>
-          </div>
-        </div>
-        <div class="info-panel">
-          <h3>Quick Sinhala + English message block</h3>
-          <p><strong>English:</strong> Looking for a phone, charger, speaker, or accessory? Message us and we’ll help you fast.</p>
-          <p><strong>සිංහල:</strong> ෆෝන් එකක්, charger එකක්, speaker එකක්, හෝ accessory එකක් ඕනේද? අපට message කරන්න — ඉක්මනින් උදව් කරනවා.</p>
-          <div class="callout">
-            <strong>Best next step:</strong>
-            <p class="small">Replace sample visuals with real shop photos and add today’s offers from Facebook every week.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-heading compact">
-          <span class="eyebrow">Latest from Facebook</span>
-          <h2>Public social highlights turned into clean website sections</h2>
-        </div>
-
-        <div class="social-grid">
-          <article class="social-card">
-            <div class="meta">Facebook page</div>
-            <h3>Be Mobile | Pannala</h3>
-            <p>Main page for offers, new arrivals, and customer-facing updates.</p>
-            <a class="inline-link" href="https://www.facebook.com/BEMOBILE1/" target="_blank" rel="noopener">Open page</a>
-          </article>
-          <article class="social-card">
-            <div class="meta">Product post</div>
-            <h3>JBL 320 feature</h3>
-            <p>Use product-specific landing cards like this to drive customers from social to website.</p>
-            <a class="inline-link" href="https://www.facebook.com/BEMOBILE1/photos/jbl-320-be-mobilepannala0704747472/1487120560082871/" target="_blank" rel="noopener">View Facebook post</a>
-          </article>
-          <article class="social-card">
-            <div class="meta">Product post</div>
-            <h3>SUPER M1212 AC/DC</h3>
-            <p>A direct example of how the site can mirror current social promotions in a cleaner format.</p>
-            <a class="inline-link" href="https://www.facebook.com/BEMOBILE1/posts/1539769208151339/" target="_blank" rel="noopener">View Facebook post</a>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div>
-        <div class="footer-brand">Be Mobile</div>
-        <p class="footer-copy">A polished website concept for Be Mobile in Pannala — ready for real photos, live offers, and full business branding.</p>
-      </div>
-      <div>
-        <h4>Pages</h4>
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <a href="tel:+94704747472">+94 70 474 7472</a>
-        <a href="https://wa.me/94704747472">WhatsApp Chat</a>
-        <a href="https://www.facebook.com/BEMOBILE1/" target="_blank" rel="noopener">Facebook Page</a>
-        <span>Pannala, Sri Lanka</span>
-      </div>
-    </div>
-    <div class="container footer-bottom">
-      <span>© <span id="year"></span> Be Mobile. All rights reserved.</span>
-      <span>Website concept for social + local retail growth.</span>
-    </div>
-  </footer>
-
-  <div class="floating-actions" aria-label="Quick actions">
-    <a href="tel:+94704747472" aria-label="Call Be Mobile">📞</a>
-    <a href="https://wa.me/94704747472" aria-label="WhatsApp Be Mobile">💬</a>
-  </div>
-
-  <script src="js/main.js"></script>
-</body>
+  };
+  return <div className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-blue-500/30 overflow-x-hidden"><Navbar currentView={currentView} setView={setCurrentView} />{renderView()}<Footer setView={setCurrentView} /></div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
 </html>
